@@ -1,0 +1,12 @@
+{% extends 'base_accounts.html' %}
+{% load static %}
+
+{% block form_title %}Register{% endblock form_title %}
+{% block submit_text %}Register{% endblock submit_text %}
+{% block bottom_card %}
+    <div class="text-center mt-2">
+        <small>
+            <a href="{% url 'login' %}" class="text-muted">Back to login</a>
+        </small>
+    </div>
+{% endblock bottom_card %}
