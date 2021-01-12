@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
+{% load static custom_tags %}
 
 {% block content %}
-Hello, {{ user.username|default:'Guest' }}!
-
-
-
+Hello, {{ user.first_name|default:'Guest' }}!
 <div>
     {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">Logout</a>
@@ -13,5 +11,68 @@ Hello, {{ user.username|default:'Guest' }}!
     {% else %}
         <a href="{% url 'login' %}">Login</a>
     {% endif %}
+
+    
+    <table class="table mb-4">
+    <thead class="thead-inverse">
+        {% for key, val in camps.first|get_fields %}
+            <td>{{ key }}</td>
+        {% endfor %}
+        <td>Num campers</td>
+        <td>View</td>
+
+    </thead>
+    <tbody>
+      {% for camp in camps %}
+        
+        <tr>
+            {% for key, val in camp|get_fields %}
+                <td>{{ val }}</td>
+            {% endfor %}
+            <td>{{ campers|num_campers:camp }}</td>
+            <td><a href="{% url 'view_camp' camp.pk %}" class="btn btn-outline-primary">View</a></td>
+            {% comment %} {% for field in camp._meta.get_fields() %}
+                <td>{{ field }}</td>
+            {% endfor %} {% endcomment %}
+          
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    {% comment %} {% for camp in camps %}
+        {{ camp.name }}
+    {% endfor %} {% endcomment %}
+    <a href="{% url 'new_camp' %}" class="btn btn-primary">New camp</a>
+
+{% comment %}  {% endcomment %}
+    <table class="table mb-4">
+    <thead class="thead-inverse">
+        {% for key, val in campers.first|get_fields %}
+            <td>{{ key }}</td>
+        {% endfor %}
+        <td>View</td>
+
+    </thead>
+    <tbody>
+      {% for camper in campers %}
+        
+        <tr>
+            {% for key, val in camper|get_fields %}
+                <td> {{ val }}</td>
+            {% endfor %}
+       
+            <td><a href="{% url 'view_camper' camper.pk %}" class="btn btn-outline-primary">View</a></td>
+            {% comment %} {% for field in camp._meta.get_fields() %}
+                <td>{{ field }}</td>
+            {% endfor %} {% endcomment %}
+          
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    {% comment %} {% for camp in camps %}
+        {{ camp.name }}
+    {% endfor %} {% endcomment %}
+    <a href="{% url 'new_camper' %}" class="btn btn-primary">New camper</a>
 </div>
 {% endblock %}

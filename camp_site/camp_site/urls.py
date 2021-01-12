@@ -16,16 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 import core.views as core_views
 import authentication.views as authentication_views
 # from authentication.forms import UserLoginForm
 
 urlpatterns = [
-    path('accounts/', include("django.contrib.auth.urls")),
-    path('register/', authentication_views.register, name="register"),
-    path('account/edit/', authentication_views.UserUpdateView.as_view(), name='edit_account'),
     path('admin/', admin.site.urls),
-    path('', core_views.home, name="home"),
-    path('', include('social_django.urls', namespace='social'))
+    path('accounts/', include('authentication.urls')),
+    path('', include('core.urls')),
+    # path('', include('social_django.urls', namespace='social'))
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
