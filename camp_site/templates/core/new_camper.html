@@ -7,10 +7,51 @@
 
 
 {% block content %}
-  <form method="post" novalidate>
-    {% csrf_token %}
-    {% include 'includes/forms.html' %}
-    <button type="submit" class="btn btn-success mb-4">Submit</button>
-  </form>
-  <a href="{% url 'home' %}" class="btn btn-success" role="button">Home</a>
+{% comment %} <form method="post" novalidate>
+  {% csrf_token %}
+  {% include 'includes/forms.html' %}
+  <button type="submit" class="btn btn-success mb-4">Submit</button>
+</form>
+<a href="{% url 'home' %}" class="btn btn-success" role="button">Home</a> {% endcomment %}
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  <fieldset>
+    <div>
+      {{ form_set.management_form }}
+      {% for form in form_set %}
+      <div class="link-formset">
+        <legend>New camper</legend>
+        {% include 'includes/forms.html' %}
+      </div>
+      {% endfor %}
+    </div>
+  </fieldset>
+  <button type="submit" class="btn btn-success mb-4">Submit</button>
+</form>
+{% comment %}
+<form method="POST" enctype="multipart/form-data">
+
+  <!-- Management data of formset -->
+  {{ formset.management_data }}
+
+  <!-- Security token -->
+  {% csrf_token %}
+
+  <!-- Using the formset -->
+  {{ form_set.as_p }}
+
+  <input type="submit" value="Submit">
+</form> {% endcomment %}
+
+
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/form_set.js' %}"></script>
+<script>
+  $('.link-formset').formset({
+    addText: 'Add Camper',
+    deleteText: 'Remove Camper'
+  });
+</script>
 {% endblock %}

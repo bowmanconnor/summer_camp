@@ -31,6 +31,7 @@ Hello, {{ user.first_name|default:'Guest' }}!
             {% endfor %}
             <td>{{ campers|num_campers:camp }}</td>
             <td><a href="{% url 'view_camp' camp.pk %}" class="btn btn-outline-primary">View</a></td>
+            <td><a href="{% url 'new_camper' camp.pk %}" class="btn btn-primary">Sign up</a></td>
             {% comment %} {% for field in camp._meta.get_fields() %}
                 <td>{{ field }}</td>
             {% endfor %} {% endcomment %}
@@ -73,6 +74,6 @@ Hello, {{ user.first_name|default:'Guest' }}!
     {% comment %} {% for camp in camps %}
         {{ camp.name }}
     {% endfor %} {% endcomment %}
-    <a href="{% url 'new_camper' %}" class="btn btn-primary">New camper</a>
+    {% comment %} <a href="{% url 'new_camper' %}" class="btn btn-primary">New camper</a> {% endcomment %}
 </div>
 {% endblock %}

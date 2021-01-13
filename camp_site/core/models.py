@@ -17,6 +17,8 @@ class Camp(models.Model):
     city = models.CharField(max_length=64, blank=False)
     state = USStateField(null=False)
     zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], blank=False)
+
+    is_open = models.BooleanField(default=True)
     # number_campers = models.IntegerField(blank=True, default=0)
     # campers = models.ForeignKey("core.Camper", related_name="camper", on_delete=models.CASCADE, null=True)
 
@@ -33,6 +35,9 @@ class Camper(models.Model):
     age = models.IntegerField(blank=False)
     group = models.CharField(max_length=1, choices=GROUP_CHOICES, blank=False)
     camp = models.ForeignKey('core.Camp', related_name='camp', on_delete=models.CASCADE, blank=False)
+
+    def __str__(self):
+        return self.name
 
 class Coach(models.Model):
     name = models.CharField(max_length=50, blank=False)

@@ -3,10 +3,14 @@ from .models import Camp, Camper, Coach
 from .forms import NewCampForm, NewCamperForm
 from django.utils import timezone
 from django.views.generic import UpdateView, DetailView, DeleteView
+from django.forms import formset_factory
+from django.views import View
+from django.contrib.auth.decorators import login_required
+
+
 
 
 # Create your views here.
-
 def home(request):
     camps = Camp.objects.all()
     campers = Camper.objects.all()
@@ -23,11 +27,6 @@ def new_camp(request):
         form = NewCampForm()
     return render(request, 'core/new_camp.html', {'form': form})
 
-# @method_decorator(staff_member_required(login_url='home') , name='dispatch')
-
-
-
-
 class CampDetailView(DetailView):
     model = Camp
     template_name = 'core/view_camp.html'
@@ -42,19 +41,21 @@ class CampDetailView(DetailView):
         context['now'] = timezone.now()
         return context
 
-def new_camper(request):
+# @login_required
+def new_camper(request, pk):
     if request.method == 'POST':
-        form = NewCamperForm(request.POST)
-        if form.is_valid():
-            camper = form.save(commit=False)
-            camper.save()
-            camper.camp.number_campers += 1
+        camper_form_set = formset_factory(NewCamperForm, min_num=1, extra=0)
+        form_set = camper_form_set(request.POST)
+        if form_set.is_valid():
+            for form in form_set:
+                camper = form.save(commit=False)
+                camper.camp = get_object_or_404(Camp, pk=pk)
+                if not (camper.name == '' and camper.age == None and camper.group == ''):
+                    camper.save()
             return redirect('home')
     else:
-        form = NewCamperForm()
-    return render(request, 'core/new_camper.html', {'form': form})
-
-# @method_decorator(staff_member_required(login_url='home') , name='dispatch')
+        form_set = formset_factory(NewCamperForm, min_num=1, extra=0)
+    return render(request, 'core/new_camper.html', {'form_set': form_set})
 
 class CamperDetailView(DetailView):
     model = Camper

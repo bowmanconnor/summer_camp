@@ -10,4 +10,6 @@ class NewCampForm(forms.ModelForm):
 class NewCamperForm(forms.ModelForm):
     class Meta:
         model = Camper
-        fields = ('name', 'age', 'group', 'camp')
+        fields = ('name', 'age', 'group')
+
+    
