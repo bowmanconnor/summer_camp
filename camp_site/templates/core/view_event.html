@@ -4,32 +4,34 @@
 
 
 {% block content %}
-<h1>View Camp {{ camp.id }}</h1>
+<h1>View Event {{ event.id }}</h1>
 
 <table class="table mb-4">
     <thead class="thead-inverse">
-        {% for key, val in camp|get_fields %}
+        {% for key, val in event|get_fields %}
             <td>{{ key }}</td>
         {% endfor %}
-        <td># campers</td>
+        <td># gymnasts</td>
     </thead>
     <tbody>
         <tr>
-            {% for key, val in camp|get_fields %}
+            {% for key, val in event|get_fields %}
                 <td>{{ val }}</td>
             {% endfor %}
-            <td>{{ num_campers }}</td>
-            {% comment %} <td><a href="{% url 'view_camp' camp.pk %}" class="btn btn-outline-primary">View</a></td> {% endcomment %}
-            {% comment %} {% for field in camp._meta.get_fields() %}
+            <td>{{ num_gymnasts }}</td>
+            {% comment %} <td><a href="{% url 'view_event' event.pk %}" class="btn btn-outline-primary">View</a></td> {% endcomment %}
+            {% comment %} {% for field in event._meta.get_fields() %}
                 <td>{{ field }}</td>
             {% endfor %} {% endcomment %}
         </tr>
     </tbody>
   </table>
 
-{% for camper in campers %}
-    {{ camper.name }}
+{% for gymnast in gymnasts %}
+    {{ gymnast.name }}
 {% endfor %}
+
+<a href="{% url 'edit_event' event.pk %}" class="btn btn-outline-primary mr-2 mb-2">Edit</a>
 
   <a href="{% url 'home' %}" class="btn btn-success" role="button">Home</a>
 

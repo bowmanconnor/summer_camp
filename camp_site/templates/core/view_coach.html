@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static custom_tags %}
+
+
+{% block content %}
+<h1>View Coach {{ coach.id }}</h1>
+
+<table class="table mb-4">
+    <thead class="thead-inverse">
+        {% for key, val in coach|get_fields %}
+            <td>{{ key }}</td>
+        {% endfor %}
+    </thead>
+    <tbody>
+        <tr>
+            {% for key, val in coach|get_fields %}
+                <td>{{ val }}</td>
+            {% endfor %}
+            {% comment %} <td><a href="{% url 'view_event' event.pk %}" class="btn btn-outline-primary">View</a></td> {% endcomment %}
+            {% comment %} {% for field in event._meta.get_fields() %}
+                <td>{{ field }}</td>
+            {% endfor %} {% endcomment %}
+          
+        </tr>
+    </tbody>
+  </table>
+
+
+
+{% comment %} <a href="{% url 'edit_expense' expense.pk %}" class="btn btn-outline-primary mr-2 mb-2">Edit</a> {% endcomment %}
+
+{% comment %} {% if not expense.paid %}
+<a href="{% url 'pay_expense' expense.pk %}" class="btn btn-success mb-2">Pay</a>
+{% endif %} {% endcomment %}
+
+{% comment %} 
+<button class="btn btn-danger float-right" data-toggle="modal" data-target="#fm-modal-grid">Delete</button>
+<div class="modal fade" id="fm-modal-grid" tabindex="-1" role="dialog" aria-labelledBy="fm-modal-grid"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Delete Expense</h5>
+        <button class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <p>Are you sure you want to delete {{ expense.expense }}?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <form action="{% url 'expense_remove' pk=expense.pk %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-outline-danger">Delete</button>
+        </form>
+        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+  <a href="{% url 'home' %}" class="btn btn-success" role="button">Home</a>
+<a href="{% url 'edit_coach' coach.pk %}" class="btn btn-outline-primary mr-2 mb-2">Edit</a>
+
+
+{% endblock %}

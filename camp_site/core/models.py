@@ -7,7 +7,7 @@ from django.core.validators import MaxValueValidator
 # Create your models here.
 
 
-class Camp(models.Model):
+class Event(models.Model):
     name = models.CharField(max_length=100, blank=False)
     description = models.CharField(max_length=50, blank=False)
     date = models.DateField(auto_now=False, auto_now_add=False)
@@ -26,7 +26,7 @@ class Camp(models.Model):
         return self.name
     
 
-class Camper(models.Model):
+class Gymnast(models.Model):
     GROUP_CHOICES = [
         ('B', 'Boys'), 
         ('G', 'Girls')
@@ -34,7 +34,7 @@ class Camper(models.Model):
     name = models.CharField(max_length=50, blank=False)
     age = models.IntegerField(blank=False)
     group = models.CharField(max_length=1, choices=GROUP_CHOICES, blank=False)
-    camp = models.ForeignKey('core.Camp', related_name='camp', on_delete=models.CASCADE, blank=False)
+    event = models.ForeignKey('core.Event', related_name='event', on_delete=models.CASCADE, blank=False)
 
     def __str__(self):
         return self.name

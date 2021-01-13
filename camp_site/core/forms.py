@@ -1,15 +1,18 @@
 from django import forms
-from .models import Camp, Camper, Coach
+from .models import Event, Coach, Gymnast
 from django.contrib.auth.models import User
 
-class NewCampForm(forms.ModelForm):
+class NewEventForm(forms.ModelForm):
     class Meta:
-        model = Camp
+        model = Event
         fields = ('name', 'description', 'date', 'address_line_1', 'address_line_2', 'city', 'state', 'zip_code')
 
-class NewCamperForm(forms.ModelForm):
+class NewGymnastForm(forms.ModelForm):
     class Meta:
-        model = Camper
+        model = Gymnast
         fields = ('name', 'age', 'group')
 
-    
+class NewCoachForm(forms.ModelForm):
+    class Meta:
+        model = Coach
+        fields = ('name', 'bio', 'pic')

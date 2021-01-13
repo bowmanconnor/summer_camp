@@ -15,65 +15,73 @@ Hello, {{ user.first_name|default:'Guest' }}!
     
     <table class="table mb-4">
     <thead class="thead-inverse">
-        {% for key, val in camps.first|get_fields %}
+        {% for key, val in events.first|get_fields %}
             <td>{{ key }}</td>
         {% endfor %}
-        <td>Num campers</td>
+        <td>Num gymnasts</td>
         <td>View</td>
-
     </thead>
     <tbody>
-      {% for camp in camps %}
-        
+      {% for event in events %}
         <tr>
-            {% for key, val in camp|get_fields %}
+            {% for key, val in event|get_fields %}
                 <td>{{ val }}</td>
             {% endfor %}
-            <td>{{ campers|num_campers:camp }}</td>
-            <td><a href="{% url 'view_camp' camp.pk %}" class="btn btn-outline-primary">View</a></td>
-            <td><a href="{% url 'new_camper' camp.pk %}" class="btn btn-primary">Sign up</a></td>
-            {% comment %} {% for field in camp._meta.get_fields() %}
-                <td>{{ field }}</td>
-            {% endfor %} {% endcomment %}
-          
+            <td>{{ gymnasts|num_gymnasts:event }}</td>
+            <td><a href="{% url 'view_event' event.pk %}" class="btn btn-outline-primary">View</a></td>
+            <td><a href="{% url 'new_gymnast' event.pk %}" class="btn btn-primary">Sign up</a></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-    {% comment %} {% for camp in camps %}
-        {{ camp.name }}
-    {% endfor %} {% endcomment %}
-    <a href="{% url 'new_camp' %}" class="btn btn-primary">New camp</a>
+    <a href="{% url 'new_event' %}" class="btn btn-primary">New event</a>
 
-{% comment %}  {% endcomment %}
     <table class="table mb-4">
     <thead class="thead-inverse">
-        {% for key, val in campers.first|get_fields %}
+        {% for key, val in gymnasts.first|get_fields %}
             <td>{{ key }}</td>
         {% endfor %}
         <td>View</td>
 
     </thead>
     <tbody>
-      {% for camper in campers %}
-        
+      {% for gymnast in gymnasts %}
         <tr>
-            {% for key, val in camper|get_fields %}
+            {% for key, val in gymnast|get_fields %}
                 <td> {{ val }}</td>
             {% endfor %}
        
-            <td><a href="{% url 'view_camper' camper.pk %}" class="btn btn-outline-primary">View</a></td>
-            {% comment %} {% for field in camp._meta.get_fields() %}
-                <td>{{ field }}</td>
-            {% endfor %} {% endcomment %}
-          
+            <td><a href="{% url 'view_gymnast' gymnast.pk %}" class="btn btn-outline-primary">View</a></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-    {% comment %} {% for camp in camps %}
-        {{ camp.name }}
-    {% endfor %} {% endcomment %}
-    {% comment %} <a href="{% url 'new_camper' %}" class="btn btn-primary">New camper</a> {% endcomment %}
+
+
+    </table>
+    {% comment %} <a href="{% url 'new_gymnast' %}" class="btn btn-primary">New gymnast</a> {% endcomment %}
+
+    <table class="table mb-4">
+    <thead class="thead-inverse">
+        {% for key, val in coaches.first|get_fields %}
+            <td>{{ key }}</td>
+        {% endfor %}
+        <td>View</td>
+
+    </thead>
+    <tbody>
+      {% for coach in coaches %}
+        <tr>
+            {% for key, val in coach|get_fields %}
+                <td> {{ val }}</td>
+            {% endfor %}
+       
+            <td><a href="{% url 'view_coach' coach.pk %}" class="btn btn-outline-primary">View</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+      <a href="{% url 'new_coach' %}" class="btn btn-primary">New coach</a>
+
 </div>
 {% endblock %}

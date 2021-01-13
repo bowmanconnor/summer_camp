@@ -22,9 +22,9 @@ def get_fields(obj):
         return [(field.name, field.value_to_string(obj)) for field in obj._meta.fields]
     
 @register.filter
-def num_campers(obj, camp):
+def num_gymnasts(obj, event):
     num = 0
     if obj:
-        for x in obj.filter(camp=camp):
+        for x in obj.filter(event=event):
             num += 1
         return num

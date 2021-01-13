@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% load static custom_tags %}
 
-{% block title %}New Camper{% endblock %}
+{% block title %}New Gymnast{% endblock %}
 
 
 
@@ -21,7 +21,7 @@
       {{ form_set.management_form }}
       {% for form in form_set %}
       <div class="link-formset">
-        <legend>New camper</legend>
+        <legend>New gymnast</legend>
         {% include 'includes/forms.html' %}
       </div>
       {% endfor %}
@@ -50,8 +50,8 @@
 <script src="{% static 'js/form_set.js' %}"></script>
 <script>
   $('.link-formset').formset({
-    addText: 'Add Camper',
-    deleteText: 'Remove Camper'
+    addText: 'Add Gymnast',
+    deleteText: 'Remove Gymnast'
   });
 </script>
 {% endblock %}
