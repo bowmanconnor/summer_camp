@@ -44,10 +44,12 @@ INSTALLED_APPS = [
      'core',
      'emails',
      'payments',
+     'editable_pages',
      'social_django',
      'crispy_forms',
      'widget_tweaks',
      'localflavor',
+
 
 ]
 

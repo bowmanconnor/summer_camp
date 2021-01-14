@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class NewEventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ('name', 'description', 'date', 'address_line_1', 'address_line_2', 'city', 'state', 'zip_code')
+        fields = ('name', 'description', 'start_date', 'end_date', 'address_line_1', 'address_line_2', 'city', 'state', 'zip_code')
 
 class NewGymnastForm(forms.ModelForm):
     class Meta:

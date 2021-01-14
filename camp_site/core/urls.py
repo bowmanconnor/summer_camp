@@ -2,7 +2,7 @@ from django.urls import include, path
 import core.views as views
 
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('data/', views.data, name="data"),
     path('event/new/', views.new_event, name='new_event'),
     path('event/<int:pk>/view/', views.EventDetailView.as_view(), name='view_event'),
     path('event/<int:pk>/edit', views.EventUpdateView.as_view(), name='edit_event'),

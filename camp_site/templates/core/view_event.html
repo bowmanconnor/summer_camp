@@ -31,9 +31,10 @@
     {{ gymnast.name }}
 {% endfor %}
 
-<a href="{% url 'edit_event' event.pk %}" class="btn btn-outline-primary mr-2 mb-2">Edit</a>
+<a href="{% url 'edit_event' event.pk %}" class="btn btn-outline-primary">Edit</a>
 
-  <a href="{% url 'home' %}" class="btn btn-success" role="button">Home</a>
+<a href="{% url 'data' %}" class="btn btn-success" role="button">data</a>
+<a href="{% url 'new_gymnast' event.pk %}" class="btn btn-primary">Sign up</a>
 
 
 

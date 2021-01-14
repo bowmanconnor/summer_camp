@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Event, Gymnast, Coach
+from editable_pages.models import Home
 from .forms import NewEventForm, NewGymnastForm, NewCoachForm
 from django.utils import timezone
 from django.views.generic import UpdateView, DetailView, DeleteView
@@ -11,12 +12,13 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def home(request):
+def data(request):
     context = {}
+    # context['homeData'] = Home.objects.all()[0]
     context['events'] = Event.objects.all()
     context['gymnasts'] = Gymnast.objects.all()
     context['coaches'] = Coach.objects.all()
-    return render(request, "home.html", context)
+    return render(request, "data.html", context)
 
 #--------------------------------------------------------------------------------------------------------
 
@@ -47,7 +49,7 @@ class EventDetailView(DetailView):
 
 class EventUpdateView(UpdateView):
     model = Event
-    fields = ('name', 'description', 'date', 'address_line_1', 'address_line_2', 'city', 'state', 'zip_code', 'is_open')
+    fields = ('name', 'description', 'start_date', 'end_date', 'address_line_1', 'address_line_2', 'city', 'state', 'zip_code', 'is_open')
 
     template_name = 'core/edit_event.html'
     pk_url_kwarg = 'pk'
@@ -114,7 +116,7 @@ def new_coach(request):
     return render(request, 'core/new_coach.html', {'form': form})
 
 class CoachDetailView(DetailView):
-    model = Event
+    model = Coach
     template_name = 'core/view_coach.html'
     pk_url_kwarg = 'pk'
     context_object_name = 'coach'
@@ -125,7 +127,7 @@ class CoachDetailView(DetailView):
         return context
 
 class CoachUpdateView(UpdateView):
-    model = Event
+    model = Coach
     fields = ('name', 'bio', 'pic')
 
     template_name = 'core/edit_coach.html'
