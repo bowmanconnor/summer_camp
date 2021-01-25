@@ -45,6 +45,7 @@ INSTALLED_APPS = [
      'emails',
      'payments',
      'editable_pages',
+
      'social_django',
      'crispy_forms',
      'widget_tweaks',
@@ -161,9 +162,8 @@ USE_TZ = True
 # SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 

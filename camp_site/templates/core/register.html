@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static custom_tags %}
+
+{% block title %}Register{% endblock %}
+
+
+
+{% block content %}
+<div class='container'>
+{% comment %} <form method="post" novalidate>
+  {% csrf_token %}
+  {% include 'includes/forms.html' %}
+  <button type="submit" class="btn btn-success mb-4">Submit</button>
+</form>
+<a href="{% url 'home' %}" class="btn btn-success" role="button">Home</a> {% endcomment %}
+<h1>Register for {{ event.name }}</h1>
+<form method="post" novalidate>
+  {% csrf_token %}
+  <fieldset>
+    <div>
+      {{ form_set.management_form }}
+      {% for form in form_set %}
+      <div class="link-formset">
+        <legend>Gymnasts</legend>
+        {% include 'includes/forms.html' %}
+      </div>
+      {% endfor %}
+    </div>
+  </fieldset>
+  <button type="submit" class="btn btn-success mb-4">Submit</button>
+</form>
+{% comment %}
+<form method="POST" enctype="multipart/form-data">
+
+  <!-- Management data of formset -->
+  {{ formset.management_data }}
+
+  <!-- Security token -->
+  {% csrf_token %}
+
+  <!-- Using the formset -->
+  {{ form_set.as_p }}
+
+  <input type="submit" value="Submit">
+</form> {% endcomment %}
+</div>
+
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/form_set.js' %}"></script>
+<script>
+  $('.link-formset').formset({
+    addText: 'Add Gymnast',
+    deleteText: 'Remove Gymnast'
+  });
+</script>
+{% endblock %}

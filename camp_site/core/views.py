@@ -45,25 +45,14 @@ class EventDetailView(DetailView):
         context["gymnasts"] = Gymnast.objects.filter(event_id=context['object'].id)
         context["num_gymnasts"] = context["gymnasts"].count()
         context['now'] = timezone.now()
-        return context
+        return context 
 
-class EventUpdateView(UpdateView):
-    model = Event
-    fields = ('name', 'description', 'start_date', 'end_date', 'address_line_1', 'address_line_2', 'city', 'state', 'zip_code', 'is_open')
 
-    template_name = 'core/edit_event.html'
-    pk_url_kwarg = 'pk'
-    context_object_name = 'event'
-
-    def form_valid(self, form):
-        event = form.save(commit=False)
-        event.save()
-        return redirect('home')
 
 #--------------------------------------------------------------------------------------------------------
 
 # @login_required
-def new_gymnast(request, pk):
+def register(request, pk):    
     if request.method == 'POST':
         gymnast_form_set = formset_factory(NewGymnastForm, min_num=1, extra=0)
         form_set = gymnast_form_set(request.POST)
@@ -76,7 +65,8 @@ def new_gymnast(request, pk):
             return redirect('home')
     else:
         form_set = formset_factory(NewGymnastForm, min_num=1, extra=0)
-    return render(request, 'core/new_gymnast.html', {'form_set': form_set})
+        
+    return render(request, 'core/register.html', {'form_set' : form_set, 'event' : get_object_or_404(Event, pk=pk) })
 
 class GymnastDetailView(DetailView):
     model = Gymnast

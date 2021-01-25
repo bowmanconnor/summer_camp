@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator
 
 class Home(models.Model):
     title = models.CharField(max_length=50, blank=False)
-    title_image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None, blank=True)
+    title_image = models.ImageField(blank=True)
     upcoming_event = models.ForeignKey("core.Event", related_name="upcoming_event", on_delete=models.CASCADE)
 
 class Basic(models.Model):
